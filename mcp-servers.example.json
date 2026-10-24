@@ -1,5 +1,12 @@
 {
   "mcpServers": {
+    "spring-ai-mcp": {
+      "command": "<ABSOLUTE_PATH_TO_JAVA_EXE>",
+      "args": [
+        "-jar",
+        "<ABSOLUTE_PATH_TO_MCP_SERVER_JAR>"
+      ]
+    },
     "filesystem": {
       "command": "npx.cmd",
       "args": [
