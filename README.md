@@ -33,9 +33,11 @@ Other settings live in `src/main/resources/application.properties`:
 | `spring.ai.bedrock.converse.chat.model` | Bedrock model / inference profile |
 | `spring.ai.mcp.client.stdio.servers-configuration` | MCP servers file (`mcp-servers.local.json`) |
 
-Copy `mcp-servers.example.json` to `mcp-servers.local.json` (gitignored, so your machine-specific paths stay private) and replace the `<...>` placeholders. The GitHub server reads its token from the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable.
+Copy `mcp-servers.stdio.json` to `mcp-servers.local.json` (gitignored, so your machine-specific paths stay private) and replace the `<...>` placeholders. The GitHub server reads its token from the `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable.
 
-The file declares the MCP servers. On Windows the command must be `npx.cmd`, because Java cannot launch `.cmd` scripts as `npx`. Use `npx` on Linux/macOS. Set the directory argument to the folder the filesystem server may access.
+The file declares the stdio MCP servers (filesystem, GitHub and the local Spring AI MCP server jar). Set the Java and jar paths too. On Windows the command must be `npx.cmd`, because Java cannot launch `.cmd` scripts as `npx`. Use `npx` on Linux/macOS. Set the directory argument to the folder the filesystem server may access.
+
+The `remotedemo` MCP server is reached over streamable HTTP at `http://localhost:8090/mcp` (configured in `application.properties`). Start that server first, or remove the connection.
 
 ## Run
 ```bash
