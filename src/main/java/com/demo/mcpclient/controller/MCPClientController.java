@@ -5,6 +5,9 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api")
@@ -21,7 +24,8 @@ public class MCPClientController {
     @GetMapping("/chat")
     public String chat(@RequestHeader(value = "username", required = false) String username,
                        @RequestParam("message") String message) {
-        return chatClient.prompt().user(message + " My username is " + username)
+        return chatClient.prompt().user(message+ " My username is " + username)
+                .toolContext(Map.of("progressToken", UUID.randomUUID().toString()))
                 .call().content();
     }
 }
