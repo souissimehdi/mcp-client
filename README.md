@@ -39,6 +39,9 @@ The file declares the stdio MCP servers (filesystem, GitHub and the local Spring
 
 The `remotedemo` MCP server is reached over streamable HTTP at `http://localhost:8090/mcp` (configured in `application.properties`). Start that server first, or remove the connection.
 
+## MCP sampling
+`HelpDeskSamplingProvider` handles sampling requests (`@McpSampling(clients = "remotedemo")`). When the remote server's `summarizeTickets` tool asks for an LLM completion, the client runs it on its own model and returns the text, so the server needs no API key. It uses the low-level `ChatModel` rather than the `ChatClient`, which avoids a loop of tool call -> sampling -> tool call.
+
 ## Run
 ```bash
 ./mvnw spring-boot:run
@@ -48,6 +51,11 @@ The `remotedemo` MCP server is reached over streamable HTTP at `http://localhost
 ```bash
 curl -H "username: mehdi" "http://localhost:8080/api/chat?message=List the files in the allowed directory"
 ```
+
+```bash
+curl -H "username: mehdi" "http://localhost:8080/api/summarize-tickets"
+```
+Calls the `summarizeTickets` tool of the remote server (sampling) and returns its summary as-is.
 
 ## Tests
 ```bash
